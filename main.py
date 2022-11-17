@@ -1,44 +1,17 @@
 import random
 import sys
 
-from PyQt5 import uic, QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QPainter, QColor
-from PyQt5.QtWidgets import QApplication, QMainWindow
+from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton
 
-
-class Window(object):
-    def setupUi(self, MainWindow):
-        MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(603, 603)
-        self.centralwidget = QtWidgets.QWidget(MainWindow)
-        self.centralwidget.setObjectName("centralwidget")
-        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton.setGeometry(QtCore.QRect(220, 10, 120, 23))
-        self.pushButton.setObjectName("pushButton")
-        MainWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 603, 21))
-        self.menubar.setObjectName("menubar")
-        MainWindow.setMenuBar(self.menubar)
-        self.statusbar = QtWidgets.QStatusBar(MainWindow)
-        self.statusbar.setObjectName("statusbar")
-        MainWindow.setStatusBar(self.statusbar)
-
-        self.retranslateUi(MainWindow)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
-
-    def retranslateUi(self, MainWindow):
-        _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Yellow circles"))
-        self.pushButton.setText(_translate("MainWindow", "Окружность"))
-        self.pushButton.resize(180, 30)
-
-
-class MyWidget(QMainWindow, Window):
+class MyWidget(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setupUi(self)
+        self.setObjectName("MainWindow")
+        self.resize(600, 600)
         self.flag = False
+        self.pushButton = QPushButton('Нарисовать окружность', self)
+        self.pushButton.setGeometry(200, 10, 200, 50)
         self.pushButton.clicked.connect(self.run)
 
     def paintEvent(self, event):
@@ -53,9 +26,9 @@ class MyWidget(QMainWindow, Window):
         self.repaint()
 
     def draw_circles(self, qp):
-        x = random.randint(110, 450)
-        qp.setBrush(QColor('yellow'))
-        qp.drawEllipse(100, 100, x, x)
+        x = random.randint(10, 290)
+        qp.setBrush(QColor(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)))
+        qp.drawEllipse(200, 200, x, x)
 
 
 if __name__ == '__main__':
